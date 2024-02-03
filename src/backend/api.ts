@@ -130,7 +130,7 @@ export async function deleteProtokoll(protokollId:string){
     })
 }
 
-export async function postProtokoll(patient:string,datum:string,publiic:boolean,closed:boolean,userId:string,protokollId:string): Promise<ProtokollResource> {
+export async function putProtokoll(patient:string,datum:string,publiic:boolean,closed:boolean,userId:string,protokollId:string): Promise<ProtokollResource> {
     let protokoll={
         id: protokollId,
         patient:patient,
@@ -147,6 +147,56 @@ export async function postProtokoll(patient:string,datum:string,publiic:boolean,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(protokoll),
+        credentials: "include" as RequestCredentials
+    })
+    let finalData = await daten.json()
+    return finalData
+}
+
+export async function createEintrag(getraenke:string,mengen:number,kommentare:string,erstellere:string,protokolle:string):Promise<EintragResource>{
+    let eintrag:EintragResource={
+        getraenk:getraenke,
+        menge:mengen,
+        kommentar:kommentare,
+        ersteller:erstellere,
+        protokoll:protokolle
+    }
+        let daten=await fetchWithErrorHandling(process.env.REACT_APP_API_SERVER_URL + `/api/eintrag/`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(eintrag),
+            credentials: "include" as RequestCredentials
+
+    })
+    let finalData = await daten.json()
+    return finalData    
+}
+export async function deleteEintrag(eintragId:string){
+    await fetchWithErrorHandling(process.env.REACT_APP_API_SERVER_URL + `/api/eintrag/${eintragId}`, {
+    method: "DELETE",
+    credentials: "include" as RequestCredentials
+})
+}
+
+export async function putEintrag(eintragId:string,getraenke:string,mengen:number,kommentare:string,erst:string,protokollIds:string): Promise<EintragResource> {
+    let eintrag={
+        id: eintragId,
+        getraenk:getraenke,
+        menge:mengen,
+        kommentar:kommentare,
+        ersteller:erst,
+        protokoll:protokollIds,
+    }
+
+    let daten = await fetchWithErrorHandling(process.env.REACT_APP_API_SERVER_URL + `/api/eintrag/${eintragId}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eintrag),
         credentials: "include" as RequestCredentials
     })
     let finalData = await daten.json()

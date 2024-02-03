@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Button, Modal, Form, InputGroup, FormControl, Col } from 'react-bootstrap';
 import { Console } from 'console';
 import { useLoginContext } from './__test__/LoginContext';
-import { postProtokoll, userId } from '../backend/api';
+import { putProtokoll, userId } from '../backend/api';
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
@@ -42,7 +42,7 @@ export function Bearbeiten({ setShow, show }: HelpProp) {
   async function editProtokoll() {
     try {
       console.log("protokoll id" + protokollId)
-      await postProtokoll(patient, datum, publiic!, closed!, userId, protokollId!)
+      await putProtokoll(patient, datum, publiic!, closed!, userId, protokollId!)
       handleClose()
     }
     catch (err) {

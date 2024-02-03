@@ -74,6 +74,7 @@ export function Navigationbar() {
                <Nav.Link>Neues Protokoll</Nav.Link>
              </LinkContainer>
             }
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
