@@ -111,7 +111,7 @@ export function CreateProtokoll() {
                     </LinkContainer>
                     
                     <Button type="submit" variant="primary" className="custom-button" onClick={create}>
-                        Erstellen
+                        Speichern
                     </Button>
                 </Col>
             </Row>

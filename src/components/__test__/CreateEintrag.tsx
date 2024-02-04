@@ -99,7 +99,7 @@ export function CreateEintrag(){
                     </LinkContainer>
                     <LinkContainer to={`/protokoll/${protokollId}`}>
                     <Button type="submit" variant="primary" className="custom-button" onClick={create}>
-                        Erstellen
+                        Speichern
                     </Button>
                     </LinkContainer>
                     

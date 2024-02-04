@@ -111,7 +111,7 @@ export function Bearbeiten({ setShow, show }: HelpProp) {
             Abbrechen
           </Button>
           <LinkContainer to="/">
-            <Button type="submit" variant="primary" onClick={editProtokoll}>OK</Button>
+            <Button type="submit" variant="primary" onClick={editProtokoll}>Speichern</Button>
           </LinkContainer>
         </Modal.Footer>
       </Modal>

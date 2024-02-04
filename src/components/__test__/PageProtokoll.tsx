@@ -7,6 +7,7 @@ import { EintragResource, ProtokollResource } from "../../Resources";
 import { PageError } from "./PageError";
 import { LinkContainer } from "react-router-bootstrap";
 import { Bearbeiten } from "../Bearbeiten";
+import { useLoginContext } from "./LoginContext";
 
 
 
@@ -23,7 +24,8 @@ export function PageProtokoll() {
     const [error, setError] = useState<Error>(undefined!)
     const [show, setShow] = useState(false);
     const [deletea, setDelete] = useState(false);
-    const [visi, setVisi] = useState(false);
+    const { loginInfo } = useLoginContext();
+
 
     // async function CreateEintrag(){
     //     await createEintrag()
@@ -84,11 +86,17 @@ export function PageProtokoll() {
                             Ersteller Name: {protokoll.erstellerName}<br />
                             Gesamtmenge: {protokoll.gesamtMenge}
                         </Card.Text>
+                        {loginInfo && userId === protokoll.ersteller && (
+                                <>
                         <Button variant="outline-danger" className="mr-2" onClick={() => setDelete(true)}>Löschen</Button>
-                        <Button variant="outline-primary" onClick={protokollBearbeiten}>Bearbeiten</Button>
+                        <Button variant="outline-primary" onClick={protokollBearbeiten}>Editieren</Button>
                         <LinkContainer to={`/protokoll/${protokollId}/eintrag/neu`}>
-                            <Button variant="outline-primary">Eintrag Erstellen</Button>
+                            <Button variant="outline-primary">Neuer Eintrag</Button>
                         </LinkContainer>
+                                </>
+                            )}
+                        
+                        
                         {show && <Bearbeiten setShow={setShow} show></Bearbeiten>}
                         <Modal
                             show={deletea}
@@ -135,7 +143,7 @@ export function PageProtokoll() {
                                 Ersteller Name: {ein.erstellerName}<br />
                             </Card.Text>
                             
-                            <Link to={`/eintrag/${ein.id}`}>Eintrag anzeigen</Link>
+                            <Link to={`/eintrag/${ein.id}`}>Details</Link>
                             
                         </Card.Body>
                         <Card.Footer>

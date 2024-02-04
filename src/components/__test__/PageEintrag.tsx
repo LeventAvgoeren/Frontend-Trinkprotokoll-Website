@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { EintragResource } from "../../Resources";
 import { PageError } from "./PageError";
 import { Badge, Button, Card, CardGroup, Col, Form, FormControl, Modal, Stack } from "react-bootstrap";
+import { useLoginContext } from "./LoginContext";
 
 
 
@@ -24,7 +25,7 @@ export function PageEintrag() {
     const [getraenk, setGetraenk] = useState("")
     const [menge, setMenge] = useState<number>()
     const [kommentar, setKommentar] = useState("")
-
+    const { loginInfo } = useLoginContext();
     async function validate() {
         if (getraenk.length < 1 && getraenk.length < 101) {
             setGetraenkeError("Name muss Länger als 1 zeichen sein und kleiner als 100")
@@ -77,10 +78,10 @@ export function PageEintrag() {
                             Menge: {eintrag.menge}<br />
                             Kommentar: {eintrag.kommentar}<br />
                             Ersteller Name: {eintrag.erstellerName}<br />
-                            {userId === eintrag.ersteller && (
+                            {loginInfo&&userId === eintrag.ersteller && (
                                 <>
-                                    <Button variant="outline-primary" onClick={() => setEintragDelete(true)}>Eintrag Löschen</Button>
-                                    <Button variant="outline-primary" onClick={()=>setEintragBearbeiten(true)}>Eintrag Bearbeiten</Button>
+                                    <Button variant="outline-primary" onClick={() => setEintragDelete(true)}>Löschen</Button>
+                                    <Button variant="outline-primary" onClick={()=>setEintragBearbeiten(true)}>Editieren</Button>
                                 </>
                             )}
                         </Card.Text>
@@ -179,7 +180,7 @@ export function PageEintrag() {
       </Button>
       <LinkContainer to={`/protokoll/${eintrag.protokoll}`}>
       <Button variant="primary" onClick={updateEintrag}>
-        OK
+        Speichern
       </Button>
       </LinkContainer>
       
